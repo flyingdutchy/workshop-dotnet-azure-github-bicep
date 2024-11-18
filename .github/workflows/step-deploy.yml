@@ -76,11 +76,11 @@ jobs:
           publish-profile: ${{ steps.publishprofile.outputs.PUBLISH_PROFILE }}
           package: publish/
 
-      - name: Restart slot (temporary workaround experiment for deployment swap operation failures)
+      - name: Restart slot
         uses: Azure/cli@v2
         with:
             azcliversion: latest
-            inlineScript: az webapp restart -g rg -n name --slot ${{ inputs.app_service_slot_name }}
+            inlineScript: az webapp restart --resource-group ${{ inputs.resource_group_name }} --name ${{ inputs.app_service_name }} --slot ${{ inputs.app_service_slot_name }}
 
       - name: Swap slots
         run: |
